@@ -302,11 +302,11 @@ and inference, see the [Advanced](#advanced) section.
 1. Clone the repository.
 
 ```
-git clone https://github.com/NVIDIA/DeepLearningExamples
-cd DeepLearningExamples/PyTorch/LanguageModeling/Transformer-XL
+git clone https://github.com/enod/Nvidia-Transformer-XL.git
+cd Nvidia-Transformer-XL
 ```
 
-2. Download and preprocess the dataset.
+2. Download and preprocess the dataset. Don't forget to replace URL_HERE
 
 ```
 bash getdata.sh
@@ -338,19 +338,19 @@ bash run_wt103_base.sh train 8 --vocab word --adaptive --fp16 --batch_chunk 1
 To start 8 GPU FP32 training on DGX-1, run:
 
 ```
-bash run_wt103_base.sh train 8 --vocab word --adaptive --batch_chunk 2
+bash run_mn_base.sh train 8 --vocab word --adaptive --fp16 --batch_chunk 1
 ```
 
 To start 16 GPU mixed precision training on DGX-2, run:
 
 ```
-bash run_wt103_base.sh train 16 --vocab word --adaptive --fp16 --batch_chunk 1 
+bash run_mn_base.sh train 16 --vocab word --adaptive --fp16 --batch_chunk 1 
 ```
 
 To start 16 GPU FP32 training on DGX-2, run:
 
 ```
-bash run_wt103_base.sh train 16 --vocab word --adaptive --batch_chunk 1
+bash run_mn_base.sh train 16 --vocab word --adaptive --batch_chunk 1
 ```
 
 For more information on the available options, refer to the [Training
