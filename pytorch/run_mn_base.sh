@@ -21,8 +21,8 @@ if [[ $1 == 'train' ]]; then
     echo 'Run training...'
     python -m torch.distributed.launch --nproc_per_node=$2 train.py \
         --cuda \
-        --data ../data/wikitext-103/ \
-        --dataset wt103 \
+        --data ../data/mn_data/ \
+        --dataset mn_dataset \
         --n_layer 16 \
         --d_model 512 \
         --n_head 8 \
@@ -48,8 +48,8 @@ elif [[ $1 == 'eval' ]]; then
     echo 'Run evaluation...'
     python -m torch.distributed.launch --nproc_per_node=$2 eval.py \
         --cuda \
-        --data ../data/wikitext-103/ \
-        --dataset wt103 \
+        --data ../data/mn_data/ \
+        --dataset mn_dataset \
         --tgt_len 64 \
         --mem_len 640 \
         --clamp_len 400 \

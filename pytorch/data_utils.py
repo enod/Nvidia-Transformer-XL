@@ -284,7 +284,7 @@ def get_lm_corpus(datadir, dataset, vocab):
     else:
         logging.info('Producing dataset {}...'.format(dataset))
         kwargs = {}
-        if dataset in ['wt103', 'wt2']:
+        if dataset in ['wt103', 'wt2', 'mn_dataset']:
             kwargs['special'] = ['<eos>']
             kwargs['lower_case'] = False
         elif dataset == 'ptb':

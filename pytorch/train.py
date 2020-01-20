@@ -73,9 +73,9 @@ def parse_args():
                          help='Target validation perplexity (for benchmarking)')
 
     dataset = parser.add_argument_group('dataset setup')
-    dataset.add_argument('--data', type=str, default='../data/mn_dataset',
+    dataset.add_argument('--data', type=str, default='./data/mn_data',
                          help='Location of the data corpus')
-    dataset.add_argument('--dataset', type=str, default='wt103',
+    dataset.add_argument('--dataset', type=str, default='mn_dataset',
                          choices=['wt103', 'lm1b', 'enwik8', 'text8', 'mn_dataset'],
                          help='Dataset name')
     dataset.add_argument('--vocab', type=str, default='word', choices=['word', 'bpe'],
