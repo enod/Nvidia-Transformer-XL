@@ -21,7 +21,7 @@ if [[ $1 == 'train' ]]; then
     echo 'Run training...'
     python -m torch.distributed.launch --nproc_per_node=$2 train.py \
         --cuda \
-        --data ../data/mn_data/ \
+        --data ./data/mn_data/ \
         --dataset mn_dataset \
         --n_layer 16 \
         --d_model 512 \

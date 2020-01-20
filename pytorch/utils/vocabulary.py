@@ -16,7 +16,7 @@ import contextlib
 import os
 from collections import Counter, OrderedDict
 import utils
-from os.path import join
+from os.path import join, exists
 from os import listdir
 
 import torch
@@ -28,7 +28,9 @@ tokenizer = FullTokenizer(model_file=join('./data', 'mn_cased.model'),
 
 class Vocab(object):
     def __init__(self, special=[], min_freq=0, max_size=None, lower_case=True,
-                 delimiter=None, vocab_file=None, model_path=None):
+                 delimiter=None, vocab_file='mn_cased.vocab', model_path='./data'):
+        print(model_path)
+        print(vocab_file)
         self.vocab_file = join(model_path, vocab_file)
 
     def tokenize(self, line, add_eos=False, add_double_eos=False):
