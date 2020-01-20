@@ -37,11 +37,11 @@ cd data
 ## Download the dataset
 if [[ ! -d 'mn_data' ]]; then
     echo "- Downloading Mongolian cased dataset"
-    wget --continue https://s3.ap-northeast-2.amazonaws.com/mn-dataset/mn-dataset.zip
+    wget --continue https://URL_HERE/mn-dataset.zip
     unzip -q mn-dataset.zip
 fi
 
 # Download sentencepiece model
 echo "- Downloading mongolian-bert Sentencepiece cased model and vocab files"
-wget --continue https://s3.ap-northeast-2.amazonaws.com/mn-dataset/mn-cased.zip
-unzip -q mn-cased.zip
+wget --continue https://storage.googleapis.com/mn_dataset/mn_cased.model
+wget --continue https://storage.googleapis.com/mn_dataset/mn_cased.vocab
