@@ -16,13 +16,15 @@ import contextlib
 import os
 from collections import Counter, OrderedDict
 import utils
+from os.path import join
+from os import listdir
 
 import torch
 
-from tokenization_sentencepiece import FullTokenizer
+from utils.tokenization_sentencepiece import FullTokenizer
 
-tokenizer = FullTokenizer(model_file=join('../data', 'mn_cased.model'),
-                          vocab_file=join('../data', 'mn_cased.vocab'), do_lower_case=False)
+tokenizer = FullTokenizer(model_file=join('./data', 'mn_cased.model'),
+                          vocab_file=join('./data', 'mn_cased.vocab'), do_lower_case=False)
 
 class Vocab(object):
     def __init__(self, special=[], min_freq=0, max_size=None, lower_case=True,
