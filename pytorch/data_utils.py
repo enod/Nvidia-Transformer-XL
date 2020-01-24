@@ -36,6 +36,8 @@ class LMOrderedIterator(object):
 
         self.device = device
 
+        # Convert data to LongTensor
+        data = torch.from_numpy(data)
         # Work out how cleanly we can divide the dataset into bsz parts.
         self.n_step = data.size(0) // bsz
 

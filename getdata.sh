@@ -31,11 +31,11 @@
 echo "=== Acquiring datasets ==="
 echo "---"
 
-mkdir -p data
-cd data
+mkdir -p pytorch/data
+cd pytorch/data
 
 ## Download the dataset
-if [[ ! -d 'mn_data' ]]; then
+if [ ! -d 'mn_data' ]; then
     echo "- Downloading Mongolian cased dataset"
     wget --continue https://URL_HERE/mn-dataset.zip
     unzip -q mn-dataset.zip

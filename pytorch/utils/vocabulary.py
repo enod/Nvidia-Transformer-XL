@@ -18,7 +18,7 @@ from collections import Counter, OrderedDict
 import utils
 from os.path import join, exists
 from os import listdir
-
+import numpy as np
 import torch
 
 from utils.tokenization_sentencepiece import FullTokenizer
@@ -29,8 +29,12 @@ tokenizer = FullTokenizer(model_file=join('./data', 'mn_cased.model'),
 class Vocab(object):
     def __init__(self, special=[], min_freq=0, max_size=None, lower_case=True,
                  delimiter=None, vocab_file='mn_cased.vocab', model_path='./data'):
-        print(model_path)
-        print(vocab_file)
+        self.counter = Counter()
+        self.special = special
+        self.min_freq = min_freq
+        self.max_size = max_size
+        self.lower_case = lower_case
+        self.delimiter = delimiter
         self.vocab_file = join(model_path, vocab_file)
 
     def tokenize(self, line, add_eos=False, add_double_eos=False):
