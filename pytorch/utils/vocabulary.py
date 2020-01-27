@@ -20,6 +20,7 @@ from os.path import join, exists
 from os import listdir
 import numpy as np
 import torch
+from tqdm import tqdm
 
 from utils.tokenization_sentencepiece import FullTokenizer
 
@@ -61,10 +62,11 @@ class Vocab(object):
         assert exists(path)
 
         sents = []
+        num_lines = sum(1 for line in open(path))
         with open(path, 'r') as f:
-            for idx, line in enumerate(f):
+            for idx, line in enumerate(tqdm(f)):
                 if verbose and idx > 0 and idx % 500000 == 0:
-                    print('  line {}'.format(idx))
+                    print('  line {} percentage {}%'.format(idx, round(idx*100/num_lines, 2)))
                 symbols = self.tokenize(line, add_eos=add_eos)
                 self.counter.update(symbols)
                 sents.append(symbols)
@@ -116,10 +118,11 @@ class Vocab(object):
         if verbose: print('encoding file {} ...'.format(path))
         assert exists(path)
         encoded = []
+        num_lines = sum(1 for line in open(path))
         with open(path, 'r') as f:
-            for idx, line in enumerate(f):
+            for idx, line in enumerate(tqdm(f)):
                 if verbose and idx > 0 and idx % 500000 == 0:
-                    print('  line {}'.format(idx))
+                    print('  line {} percentage {}%'.format(idx, round(idx*100/num_lines, 2)))
                 symbols = tokenizer.tokenize(line)
                 encoded.append(self.convert_to_nparray(symbols))
 
