@@ -220,20 +220,20 @@ class Corpus(object):
         else:
             raise RuntimeError('Unsupported vocab')
 
-        if self.dataset in ['ptb', 'wt2', 'enwik8', 'text8']:
-            self.vocab.count_file(os.path.join(path, 'train.txt'))
-            self.vocab.count_file(os.path.join(path, 'valid.txt'))
-            self.vocab.count_file(os.path.join(path, 'test.txt'))
-        elif self.dataset == 'wt103':
-            self.vocab.count_file(os.path.join(path, 'train.txt'))
-        elif self.dataset == 'mn_dataset':
-            self.vocab.count_file(os.path.join(path, 'train.txt'))    
-        elif self.dataset == 'lm1b':
-            train_path_pattern = os.path.join(
-                path, '1-billion-word-language-modeling-benchmark-r13output',
-                'training-monolingual.tokenized.shuffled', 'news.en-*')
-            train_paths = glob.glob(train_path_pattern)
-            # the vocab will load from file when build_vocab() is called
+        # if self.dataset in ['ptb', 'wt2', 'enwik8', 'text8']:
+        #     self.vocab.count_file(os.path.join(path, 'train.txt'))
+        #     self.vocab.count_file(os.path.join(path, 'valid.txt'))
+        #     self.vocab.count_file(os.path.join(path, 'test.txt'))
+        # elif self.dataset == 'wt103':
+        #     self.vocab.count_file(os.path.join(path, 'train.txt'))
+        # elif self.dataset == 'mn_dataset':
+        #     self.vocab.count_file(os.path.join(path, 'train.txt'))    
+        # elif self.dataset == 'lm1b':
+        #     train_path_pattern = os.path.join(
+        #         path, '1-billion-word-language-modeling-benchmark-r13output',
+        #         'training-monolingual.tokenized.shuffled', 'news.en-*')
+        #     train_paths = glob.glob(train_path_pattern)
+        #     # the vocab will load from file when build_vocab() is called
 
         self.vocab.build_vocab()
 
@@ -285,7 +285,7 @@ def get_lm_corpus(datadir, dataset, vocab):
 
     if os.path.exists(fn):
         logging.info('Loading cached dataset...')
-        load(fn, mmap_mode='r')
+        corpus = load(fn, mmap_mode='r')
     else:
         logging.info('Producing dataset {}...'.format(dataset))
         kwargs = {}
