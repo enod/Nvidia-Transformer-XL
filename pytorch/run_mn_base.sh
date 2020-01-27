@@ -48,7 +48,7 @@ elif [[ $1 == 'eval' ]]; then
     echo 'Run evaluation...'
     python -m torch.distributed.launch --nproc_per_node=$2 eval.py \
         --cuda \
-        --data ../data/mn_data/ \
+        --data data/mn_data/ \
         --dataset mn_dataset \
         --tgt_len 64 \
         --mem_len 640 \

@@ -20,6 +20,7 @@ import re
 import numpy as np
 import sacremoses
 import torch
+from joblib import dump, load
 
 import utils
 from utils.vocabulary import Vocab
@@ -284,7 +285,7 @@ def get_lm_corpus(datadir, dataset, vocab):
 
     if os.path.exists(fn):
         logging.info('Loading cached dataset...')
-        corpus = torch.load(fn)
+        load(fn, mmap_mode='r')
     else:
         logging.info('Producing dataset {}...'.format(dataset))
         kwargs = {}
@@ -304,7 +305,7 @@ def get_lm_corpus(datadir, dataset, vocab):
         corpus = Corpus(datadir, dataset, vocab, **kwargs)
         with utils.distributed.sync_workers() as rank:
             if rank == 0:
-                torch.save(corpus, fn)
+                dump(corpus, fn)
 
     return corpus
 
