@@ -1,5 +1,5 @@
 pytorch-transformers==1.1.0
 sacremoses==0.0.35
 wrapt
-tensorflow==1.15.0
+tensorflow==1.15.2
 joblib
