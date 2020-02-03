@@ -119,6 +119,7 @@ class Vocab(object):
         assert exists(path)
         encoded = []
         num_lines = sum(1 for line in open(path))
+        print(num_lines)
         with open(path, 'r') as f:
             for idx, line in enumerate(tqdm(f)):
                 if verbose and idx > 0 and idx % 500000 == 0:
@@ -183,53 +184,3 @@ class Vocab(object):
 
     def __len__(self):
         return len(self.idx2sym)
-
-
-# Class OpenAIVocab has been adapted from
-# https://github.com/cybertronai/transformer-xl/blob/master/utils/vocabulary.py
-class OpenAIVocab(Vocab):
-    def __init__(self, max_size=None, vocab_file=None):
-        from pytorch_transformers import GPT2Tokenizer
-        self.tokenizer = GPT2Tokenizer.from_pretrained('gpt2')
-        self.EOT = self.tokenizer.encoder['<|endoftext|>']
-        self.max_size = max_size
-        self.vocab_file = vocab_file
-
-        pad = 8
-        vocab_size = len(self.tokenizer)
-        padded_vocab_size = (vocab_size + pad - 1) // pad * pad
-        for i in range(0, padded_vocab_size - vocab_size):
-            token = f'madeupword{i:09d}'
-            self.tokenizer.add_tokens([token])
-
-    def __len__(self):
-        return len(self.tokenizer)
-
-    def count_file(self, path, verbose=False, add_eos=False):
-        # TODO: train from scratch, respect self.max_size
-        pass
-
-    def build_vocab(self):
-        pass
-
-    def encode_file(self, path, ordered=False, verbose=False, add_eos=True, add_double_eos=False) -> torch.LongTensor:
-        cached = path + '.bpe'
-        if os.path.exists(cached):
-            return torch.load(cached)
-        print(f'encoding file {path} ...')
-        assert os.path.exists(path), f"{path} doesn't exist"
-
-        with open(path, encoding='utf-8') as f:
-            # Suppress warnings about length.
-            with open(os.devnull, "w") as devnull, contextlib.redirect_stderr(devnull):
-                out = torch.LongTensor(self.tokenizer.encode(f.read()) + [self.EOT])
-                with utils.distributed.sync_workers() as rank:
-                    if rank == 0:
-                        torch.save(out, cached)
-                return out
-
-    def tokenize(self, line, add_eos=False, add_double_eos=False):
-        return self.tokenizer.encode(line)
-
-    def convert_to_tensor(self, symbols):
-        return torch.LongTensor(symbols)
