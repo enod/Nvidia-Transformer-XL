@@ -1,5 +1,5 @@
 transformers==2.4.1
 sacremoses==0.0.35
 wrapt
-tensorflow==1.15.0
+tensorflow==2.6.4
 joblib
